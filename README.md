@@ -5,5 +5,5 @@ Implementing exercises and ideas from the [Rust Programming Language book (2021 
 
 ## Chpt 3
 * [temperature conversion](chpt3/temp_conversion/src/lib.rs)
-* [nth fibonacci](chpt3/fibonacci/src/lib.rs])
+* [nth fibonacci](chpt3/fibonacci/src/lib.rs)
 
