@@ -1,2 +1,7 @@
 [workspace]
-members = ["hello_world", "chpt3/temp_conversion", "chpt3/fibonacci"]
+members = [
+    "hello_world",
+    "chpt3/temp_conversion",
+    "chpt3/fibonacci",
+    "chpt4/ownership"
+]
