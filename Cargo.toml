@@ -1,0 +1,2 @@
+[workspace]
+members = ["hello_world", "chpt3/temp_conversion"]
