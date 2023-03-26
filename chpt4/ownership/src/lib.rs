@@ -31,4 +31,15 @@ mod tests {
         assert_eq!(s1, "Hello");
     }
 
+    #[test]
+    fn test_references_and_borrowing() {
+        let s1 = String::from("Hello");
+
+        fn calculate_len(s: &String) -> usize {
+            s.len()
+        }
+        let len = calculate_len(&s1);
+        assert_eq!(len, 5);
+    }
+
 }
