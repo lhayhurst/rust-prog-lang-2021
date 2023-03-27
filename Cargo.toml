@@ -3,5 +3,7 @@ members = [
     "hello_world",
     "chpt3/temp_conversion",
     "chpt3/fibonacci",
-    "chpt4/ownership"
+    "chpt4/ownership",
+    "chpt4/slices",
+    "chpt5/structs"
 ]
