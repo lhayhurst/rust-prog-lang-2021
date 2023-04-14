@@ -93,4 +93,100 @@ mod tests {
         assert_eq!(origin.2, 100);
     }
 
+    #[test]
+    fn test_can_add_useful_functionality_with_eq_trait() {
+
+        #[derive(Debug)]
+        enum BookFormat { Paperback, Hardback, Ebook }
+
+        #[derive(Debug)]
+        struct Book {
+            isbn: i64,
+            format: BookFormat,
+        }
+
+        impl PartialEq for Book {
+            fn eq(&self, other: &Self) -> bool {
+                self.isbn == other.isbn
+            }
+        }
+        impl Eq for Book {}
+
+        let ebook = Book {
+            isbn: 9780156035217,
+            format: BookFormat::Ebook,
+        };
+
+        let hardback = Book {
+            isbn: 9780156035217,
+            format: BookFormat::Hardback,
+        };
+
+        assert_eq!(ebook, hardback);
+        assert!( ebook == hardback);  // == works as well
+
+        let another_book = Book {
+            isbn: 1840228304,
+            format: BookFormat::Paperback,
+        };
+
+        assert!(ebook != another_book)
+    }
+
+    #[test]
+    fn test_can_add_methods_to_struct() {
+        struct Rectangle {
+            width: u32,
+            height: u32,
+        }
+
+        impl Rectangle {
+            fn area(&self) -> u32 {
+                self.width * self.height
+            }
+
+            fn width(&self) -> bool {
+                self.width > 0
+            }
+        }
+
+        let r = Rectangle{ width: 10, height: 20 };
+        assert_eq!(r.area(), 10 * 20 );
+        assert!(r.width());
+
+        let r2 = Rectangle{ width: 0, height: 20};
+        assert!(r2.width() == false);
+    }
+
+    #[test]
+    fn test_associated_function() {
+        // functions in an impl block are called associated functions because
+        // they are associated with whatever the type is after the impl
+        // but they don't have to take self as an argument
+        struct Rectangle {
+            width: u32,
+            height: u32,
+        }
+
+        impl Rectangle {
+            fn square(size: u32) -> Self {
+                Self {
+                    width: size,
+                    height: size,
+                }
+            }
+        }
+
+        // you can have multiple implementation blocks if you want, see page 102
+        impl Rectangle {
+            fn area(&self) -> u32 {
+                self.width * self.height
+            }
+        }
+
+        let square = Rectangle::square(10);
+        assert!(square.width == square.height);
+        assert_eq!(square.area(), 100);
+    }
+
 }
