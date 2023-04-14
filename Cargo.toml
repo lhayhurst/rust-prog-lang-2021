@@ -5,5 +5,7 @@ members = [
     "chpt3/fibonacci",
     "chpt4/ownership",
     "chpt4/slices",
-    "chpt5/structs"
+    "chpt5/structs",
+    "chpt6/enums",
+    "chpt6/patterns"
 ]
