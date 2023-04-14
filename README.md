@@ -11,3 +11,6 @@ Implementing exercises and ideas from the [Rust Programming Language book (2021 
 * [ownership and references](chpt4/ownership/src/lib.rs)
 * [slices](chpt4/slices/src/lib.rs)
 
+## Chpt 5
+[Various tests](chpt5/structs/src/lib.rs) related to declaring and initializing structs, adding traits to structs, adding methods, and associated functions.
+
