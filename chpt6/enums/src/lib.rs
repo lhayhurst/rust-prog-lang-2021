@@ -1,14 +1,50 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+enum IpAddrKind {
+    V4,
+    V6,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+#[test]
+fn test_enum_values() {
+
+    fn route(ip_kind: IpAddrKind) -> bool {
+        true
+    }
+
+    assert!(route(IpAddrKind::V4));
+    assert!(route(IpAddrKind::V6));
+}
+
+// enums can be put into structs
+struct IpAddr {
+    kind: IpAddrKind,
+    address: String
+}
+
+// and also enums can be typed
+
+enum ChessPieces {
+    King(String),
+    Queen(String),
+    Rook(String),
+    Knight(String),
+    Bishop(String),
+    Pawn(String)
+}
+
+#[test]
+fn test_typed_enum_values() {
+    let king = ChessPieces::King(String::from("K")); //its a function call!
+     match king {
+        ChessPieces::King(symbol) => assert_eq!(symbol, "K"),
+        _ => panic!("Expected a King variant with the symbol \"K\""), // a little goofy, but...
     }
 }
+
+#[test]
+fn test_option_enum() {
+    let some_number = Some(5);
+    assert_eq!(5, some_number.unwrap()); // more canononical is to use match {}
+}
+
+
