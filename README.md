@@ -14,3 +14,6 @@ Implementing exercises and ideas from the [Rust Programming Language book (2021 
 ## Chpt 5
 [Various tests](chpt5/structs/src/lib.rs) related to declaring and initializing structs, adding traits to structs, adding methods, and associated functions.
 
+## Chpt 6
+* [enums](chpt6/enums/src/lib.rs)
+* [matching](chpt6/patterns/src/lib.rs)
