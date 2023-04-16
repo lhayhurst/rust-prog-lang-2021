@@ -1,6 +1,6 @@
 #[test]
 fn test_string_create() {
-    let mut s = String::new();
+    let s = String::new();
     assert_eq!(0, s.len());
 }
 
