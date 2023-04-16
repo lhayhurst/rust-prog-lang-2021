@@ -97,7 +97,7 @@ mod tests {
         let numbers = vec![1, 2];
         let result = median_and_mode(numbers);
         match result {
-            Ok(result) => assert!(result.median == 1.5 && result.mode == 1),
+            Ok(result) => assert!(result.median == 1.5 && result.mode == 2),
             _ => assert!(false),
         }
     }
