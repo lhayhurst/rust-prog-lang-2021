@@ -10,5 +10,6 @@ members = [
     "chpt6/patterns",
     "chpt8/vec",
     "chpt8/string",
-    "chpt8/hashmap"
+    "chpt8/hashmap",
+    "chpt8/prob1"
 ]

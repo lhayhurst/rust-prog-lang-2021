@@ -22,3 +22,4 @@ Implementing exercises and ideas from the [Rust Programming Language book (2021 
 * [vectors](chpt8/vec/src/lib.rs)
 * [strings](chpt8/string/src/lib.rs)
 * [hashmaps](chpt8/hashmap/src/lib.rs)
+* [problem1](chpt8/prob1/src/lib.rs): implementation and tests for calculating median and mode for a vector of ints.
