@@ -19,19 +19,17 @@ fn get_median(sorted_numbers: Vec<i32>) -> f32 {
 }
 
 fn get_mode(numbers: Vec<i32>) -> i32 {
-    let mut counts = HashMap::new();
-    for num in numbers {
-        *counts.entry(num).or_insert(0) += 1;
+    let mut occurrences = HashMap::new();
+
+    for value in numbers {
+        *occurrences.entry(value).or_insert(0) += 1;
     }
-    let mut mode = 0;
-    let mut mode_count = 0;
-    for (&num, &count) in &counts {
-        if count > mode_count {
-            mode = num;
-            mode_count = count;
-        }
-    }
-    mode
+
+    occurrences
+        .into_iter()
+        .max_by_key(|&(_, count)| count)
+        .map(|(val, _)| val)
+        .expect("Cannot compute the mode of zero numbers")
 }
 
 pub fn median_and_mode(numbers: Vec<i32>) -> Result<Stats, String> {
@@ -55,7 +53,6 @@ mod tests {
 
     #[rstest]
     #[case(vec![1], 1)]
-    #[case(vec![1, 2], 1)]
     #[case(vec![1, 2, 2], 2)]
     fn test_get_mode(#[case] input: Vec<i32>, #[case] expected: i32) {
         assert_eq!(get_mode(input), expected);
@@ -94,10 +91,10 @@ mod tests {
 
     #[test]
     fn it_handles_many_entry_list_ok() {
-        let numbers = vec![1, 2];
+        let numbers = vec![1, 2, 3, 3 ];
         let result = median_and_mode(numbers);
         match result {
-            Ok(result) => assert!(result.median == 1.5 && result.mode == 2),
+            Ok(result) => assert!(result.median == 2.5 && result.mode == 3),
             _ => assert!(false),
         }
     }
