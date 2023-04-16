@@ -17,3 +17,8 @@ Implementing exercises and ideas from the [Rust Programming Language book (2021 
 ## Chpt 6
 * [enums](chpt6/enums/src/lib.rs)
 * [matching](chpt6/patterns/src/lib.rs)
+
+## Chpt 8
+* [vectors](chpt8/vec/src/lib.rs)
+* [strings](chpt8/string/src/lib.rs)
+* [hashmaps](chpt8/hashmap/src/lib.rs)
