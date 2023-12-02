@@ -25,7 +25,7 @@ fn test_read_elements_from_vec() {
     // alternatively you can use get()
     let third: Option<&i32> = v.get(2);
     match third {
-        Some(third) => assert!(true),
+        Some(_third) => assert!(true),
         _ => assert!(false),
     }
 }

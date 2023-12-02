@@ -1,4 +1,3 @@
-
 #[cfg(test)]
 mod tests {
     #[test]
@@ -41,5 +40,4 @@ mod tests {
         let len = calculate_len(&s1);
         assert_eq!(len, 5);
     }
-
 }

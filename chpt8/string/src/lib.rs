@@ -42,4 +42,3 @@ fn test_str_concat_via_format() {
     let s4 = format!("{s1}-{s2}-{s3}");
     assert_eq!(s4, "tic-tac-toe");
 }
-

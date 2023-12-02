@@ -3,7 +3,7 @@ pub fn fahrenheit_to_celsius(temp: f64) -> f64 {
 }
 
 pub fn celsius_to_fahrenheit(temp: f64) -> f64 {
-    (temp * 9.0 / 5.0 ) + 32.0
+    (temp * 9.0 / 5.0) + 32.0
 }
 
 #[cfg(test)]
@@ -31,6 +31,4 @@ mod tests {
     fn test_celsius_to_fahrenheit(#[case] input: f64, #[case] expected: f64) {
         assert_approx_eq!(f64, celsius_to_fahrenheit(input), expected, epsilon = 0.01)
     }
-
-
 }

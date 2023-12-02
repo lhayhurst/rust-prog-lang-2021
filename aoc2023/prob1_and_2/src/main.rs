@@ -1,6 +1,7 @@
-use prob1::{get_calibration_value, get_numbers_from_string};
 use std::fs::File;
 use std::io::{self, BufRead};
+use prob1_and_2::get_calibration_value;
+use prob1_and_2::get_numbers_from_string;
 
 pub fn read_file_lines(file_path: &str) -> Result<Vec<String>, io::Error> {
     let file = File::open(file_path)?;

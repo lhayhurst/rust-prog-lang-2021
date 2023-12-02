@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-#[test] 
+#[test]
 fn test_create_hashmap() {
     let mut scores = HashMap::new();
     scores.insert(String::from("Blue"), 10);
@@ -13,7 +13,7 @@ fn test_get_from_hashmap() {
     scores.insert(String::from("Blue"), 10);
 
     let team_name = String::from("Blue");
-    let score = scores.get(&team_name).copied().unwrap_or(0);  //awwwwwkward
+    let score = scores.get(&team_name).copied().unwrap_or(0); //awwwwwkward
     assert_eq!(score, 10);
 
     let nteam_name = String::from("Red");

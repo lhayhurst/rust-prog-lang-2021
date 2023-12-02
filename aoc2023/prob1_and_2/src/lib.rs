@@ -46,10 +46,6 @@ mod test_prepass_substitute {
     }
 }
 
-
-
-
-
 pub fn get_numbers_from_string(s: &str) -> Vec<i32> {
     let mut numbers: Vec<i32> = Vec::new();
     let num_subbed_str = prepass_substitute(s, create_number_map());
@@ -136,4 +132,3 @@ mod test_get_calibration_value {
         assert_eq!(13, result.unwrap());
     }
 }
-

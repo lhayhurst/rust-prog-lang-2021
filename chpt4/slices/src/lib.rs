@@ -1,4 +1,3 @@
-
 #[cfg(test)]
 mod tests {
 
@@ -8,9 +7,9 @@ mod tests {
             if item == b' ' {
                 return &s[0..i];
             }
+        }
+        return &s[..];
     }
-    return &s[..];
-}
 
     #[test]
     fn test_index_of_first_word() {
