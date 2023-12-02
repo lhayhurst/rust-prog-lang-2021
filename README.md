@@ -23,3 +23,9 @@ Implementing exercises and ideas from the [Rust Programming Language book (2021 
 * [strings](chpt8/string/src/lib.rs)
 * [hashmaps](chpt8/hashmap/src/lib.rs)
 * [problem1](chpt8/prob1/src/lib.rs): implementation and tests for calculating median and mode for a vector of ints.
+
+# Advent of Code 2023
+Mooching of this project to do the [Advent of Code 2023](https://adventofcode.com/2023/); also making generous use of ChatGPT as a co-pilot to see how it feels to use a LLM code pal in a focused way. 
+
+See [the local README](./aoc2023/README.md) for notes. 
+
