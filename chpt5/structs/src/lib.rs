@@ -1,11 +1,10 @@
-
 #[cfg(test)]
 mod tests {
     struct User {
         active: bool,
         username: String,
         email: String,
-        sign_in_count: u64
+        sign_in_count: u64,
     }
 
     #[test]
@@ -14,7 +13,7 @@ mod tests {
             active: true,
             username: String::from("inigomontoya"),
             email: String::from("inigo@montoya.com"),
-            sign_in_count: 1010
+            sign_in_count: 1010,
         };
 
         assert_eq!(u1.active, true);
@@ -25,7 +24,6 @@ mod tests {
         u1.sign_in_count = 1111;
         assert_eq!(u1.sign_in_count, 1111);
     }
-
 
     #[test]
     fn test_can_make_user_using_factory_function() {
@@ -38,7 +36,10 @@ mod tests {
             }
         }
 
-        let u1 = build_user(String::from("inigo@montoya.com"), String::from("inigomontoya"));
+        let u1 = build_user(
+            String::from("inigo@montoya.com"),
+            String::from("inigomontoya"),
+        );
         assert_eq!(u1.active, true);
         assert_eq!(u1.username, "inigomontoya");
         assert_eq!(u1.email, "inigo@montoya.com");
@@ -56,7 +57,10 @@ mod tests {
             }
         }
 
-        let u1 = build_user(String::from("inigo@montoya.com"), String::from("inigomontoya"));
+        let u1 = build_user(
+            String::from("inigo@montoya.com"),
+            String::from("inigomontoya"),
+        );
         assert_eq!(u1.active, true);
         assert_eq!(u1.username, "inigomontoya");
         assert_eq!(u1.email, "inigo@montoya.com");
@@ -69,19 +73,18 @@ mod tests {
             active: true,
             username: String::from("wesley"),
             email: String::from("wesley@farmboy.com"),
-            sign_in_count: 1010
+            sign_in_count: 1010,
         };
 
         let u2 = User {
             email: String::from("dread@pirateroberts.com"),
-            .. u1
+            ..u1
         };
 
         assert_eq!(u2.active, true);
         assert_eq!(u2.username, "wesley");
         assert_eq!(u2.email, "dread@pirateroberts.com");
         assert_eq!(u2.sign_in_count, 1010);
-
     }
 
     #[test]
@@ -95,9 +98,12 @@ mod tests {
 
     #[test]
     fn test_can_add_useful_functionality_with_eq_trait() {
-
         #[derive(Debug)]
-        enum BookFormat { Paperback, Hardback, Ebook }
+        enum BookFormat {
+            Paperback,
+            Hardback,
+            Ebook,
+        }
 
         #[derive(Debug)]
         struct Book {
@@ -123,7 +129,7 @@ mod tests {
         };
 
         assert_eq!(ebook, hardback);
-        assert!( ebook == hardback);  // == works as well
+        assert!(ebook == hardback); // == works as well
 
         let another_book = Book {
             isbn: 1840228304,
@@ -150,11 +156,17 @@ mod tests {
             }
         }
 
-        let r = Rectangle{ width: 10, height: 20 };
-        assert_eq!(r.area(), 10 * 20 );
+        let r = Rectangle {
+            width: 10,
+            height: 20,
+        };
+        assert_eq!(r.area(), 10 * 20);
         assert!(r.width());
 
-        let r2 = Rectangle{ width: 0, height: 20};
+        let r2 = Rectangle {
+            width: 0,
+            height: 20,
+        };
         assert!(r2.width() == false);
     }
 
@@ -188,5 +200,4 @@ mod tests {
         assert!(square.width == square.height);
         assert_eq!(square.area(), 100);
     }
-
 }
