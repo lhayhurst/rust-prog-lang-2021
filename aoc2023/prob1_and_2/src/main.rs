@@ -11,7 +11,7 @@ pub fn read_file_lines(file_path: &str) -> Result<Vec<String>, io::Error> {
 }
 
 fn main() {
-    let file_path = "input.txt";
+    let file_path = "aoc2023/prob1_and_2/input.txt";
     match read_file_lines(file_path) {
         Ok(lines) => {
             let mut sum: i32 = 0;
@@ -26,6 +26,7 @@ fn main() {
                     }
                     Ok(value) => {
                         sum = sum + value;
+                        println!("{} -> {} ({})", line, result.unwrap(), sum);
                     }
                 }
             }
