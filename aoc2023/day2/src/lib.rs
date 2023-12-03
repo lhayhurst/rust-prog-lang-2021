@@ -2,9 +2,9 @@ use regex::Regex;
 use std::str::Split;
 
 pub struct CubeSample {
-    num_greens: i32,
-    num_reds: i32,
-    num_blues: i32,
+    pub num_greens: i32,
+    pub num_reds: i32,
+    pub num_blues: i32,
 }
 
 impl CubeSample {
@@ -27,6 +27,27 @@ impl CubeSamples {
             }
         }
         return true;
+    }
+
+    pub fn fewest_number_for_possible_game(&self) -> CubeSample {
+        let mut cs = CubeSample {
+            num_blues: 0,
+            num_reds: 0,
+            num_greens: 0,
+        };
+        for s in &self.samples {
+            if s.num_blues > cs.num_blues {
+                cs.num_blues = s.num_blues;
+            }
+            if s.num_reds > cs.num_reds {
+                cs.num_reds = s.num_reds;
+            }
+            if s.num_greens > cs.num_greens {
+                cs.num_greens = s.num_greens;
+            }
+        }
+
+        return cs;
     }
 }
 
@@ -170,5 +191,58 @@ mod test_cube_sampler {
             parse_cube_sample_line("Game 1: 13 blue, 14 red; 1 red, 15 green, 6 blue; 2 green");
 
         assert_eq!(result.has_valid_samples(), false);
+    }
+
+    #[test]
+    fn test_fewest_number_for_possible_game_input_1() {
+        let result =
+            parse_cube_sample_line("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green");
+        let fp = result.fewest_number_for_possible_game();
+        assert_eq!(fp.num_reds, 4);
+        assert_eq!(fp.num_greens, 2);
+        assert_eq!(fp.num_blues, 6);
+    }
+
+    #[test]
+    fn test_fewest_number_for_possible_game_input_2() {
+        let result = parse_cube_sample_line(
+            "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue",
+        );
+        let fp = result.fewest_number_for_possible_game();
+        assert_eq!(fp.num_reds, 1);
+        assert_eq!(fp.num_greens, 3);
+        assert_eq!(fp.num_blues, 4);
+    }
+
+    #[test]
+    fn test_fewest_number_for_possible_game_input_3() {
+        let result = parse_cube_sample_line(
+            "Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red",
+        );
+        let fp = result.fewest_number_for_possible_game();
+        assert_eq!(fp.num_reds, 20);
+        assert_eq!(fp.num_greens, 13);
+        assert_eq!(fp.num_blues, 6);
+    }
+
+    #[test]
+    fn test_fewest_number_for_possible_game_input_4() {
+        let result = parse_cube_sample_line(
+            "Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red",
+        );
+        let fp = result.fewest_number_for_possible_game();
+        assert_eq!(fp.num_reds, 14);
+        assert_eq!(fp.num_greens, 3);
+        assert_eq!(fp.num_blues, 15);
+    }
+
+    #[test]
+    fn test_fewest_number_for_possible_game_input_5() {
+        let result =
+            parse_cube_sample_line("Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green");
+        let fp = result.fewest_number_for_possible_game();
+        assert_eq!(fp.num_reds, 6);
+        assert_eq!(fp.num_greens, 3);
+        assert_eq!(fp.num_blues, 2);
     }
 }

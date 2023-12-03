@@ -3,3 +3,4 @@
 I'm doing it in Rust! 
 
 * See [day1](./day1)
+* See [day2](./day2)
