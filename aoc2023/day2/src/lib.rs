@@ -1,5 +1,5 @@
-use std::str::Split;
 use regex::Regex;
+use std::str::Split;
 
 pub struct CubeSample {
     num_greens: i32,
@@ -7,9 +7,27 @@ pub struct CubeSample {
     num_blues: i32,
 }
 
+impl CubeSample {
+    //only 12 red cubes, 13 green cubes, and 14 blue cubes is legal
+    fn is_valid_sample(&self) -> bool {
+        return self.num_reds <= 12 && self.num_greens <= 13 && self.num_blues <= 14;
+    }
+}
+
 pub struct CubeSamples {
     samples: Vec<CubeSample>,
     game_num: i32,
+}
+
+impl CubeSamples {
+    fn has_valid_samples(&self) -> bool {
+        for s in &self.samples {
+            if s.is_valid_sample() == false {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 // expecting something of the form Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -38,7 +56,7 @@ pub fn parse_cube_sample_line(input: &str) -> CubeSamples {
                             let num_cubes = cstpat_captures[1].parse::<i32>().unwrap();
                             if let Some(cube_color) = cstpat_captures.get(2) {
                                 let cube_color_str = cube_color.as_str().to_lowercase();
-                                if cube_color_str== "red" {
+                                if cube_color_str == "red" {
                                     cube_sample.num_reds = num_cubes;
                                 } else if cube_color_str == "green" {
                                     cube_sample.num_greens = num_cubes;
@@ -59,16 +77,15 @@ pub fn parse_cube_sample_line(input: &str) -> CubeSamples {
                     }
                     cube_samples.samples.push(cube_sample);
                 }
-
                 return cube_samples;
             } else {
-                panic!("Input {} did not contain any semi-colon delimmed samples", input);
+                panic!(
+                    "Input {} did not contain any semi-colon delimmed samples",
+                    input
+                );
             }
         } else {
-            panic!(
-                "Could not extract game number from input {}",
-                input
-            );
+            panic!("Could not extract game number from input {}", input);
         }
     } else {
         return panic!("Sample line {} did not start with Game N", input);
@@ -97,7 +114,55 @@ mod test_cube_sampler {
         assert_eq!(0, result.samples[2].num_blues);
         assert_eq!(0, result.samples[2].num_reds);
         assert_eq!(2, result.samples[2].num_greens);
+    }
 
+    fn test_is_valid_sample() {
+        let cs = CubeSample {
+            num_reds: 0,
+            num_greens: 0,
+            num_blues: 0,
+        };
+        assert_eq!(cs.is_valid_sample(), true);
+    }
 
+    fn test_is_not_valid_sample_cos_reds() {
+        let cs = CubeSample {
+            num_reds: 13,
+            num_greens: 0,
+            num_blues: 0,
+        };
+        assert_eq!(cs.is_valid_sample(), true);
+    }
+
+    fn test_is_not_valid_sample_cos_greens() {
+        let cs = CubeSample {
+            num_reds: 12,
+            num_greens: 14,
+            num_blues: 0,
+        };
+        assert_eq!(cs.is_valid_sample(), true);
+    }
+
+    fn test_is_not_valid_sample_cos_blues() {
+        let cs = CubeSample {
+            num_reds: 12,
+            num_greens: 13,
+            num_blues: 15,
+        };
+        assert_eq!(cs.is_valid_sample(), true);
+    }
+
+    fn test_is_valid_game_on_valid_game_input() {
+        let result =
+            parse_cube_sample_line("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green");
+
+        assert_eq!(result.has_valid_samples(), true);
+    }
+
+    fn test_is_valid_game_on_valid_game_invalid_sample_input() {
+        let result =
+            parse_cube_sample_line("Game 1: 13 blue, 14 red; 1 red, 15 green, 6 blue; 2 green");
+
+        assert_eq!(result.has_valid_samples(), true);
     }
 }
