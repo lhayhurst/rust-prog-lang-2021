@@ -9,18 +9,18 @@ pub struct CubeSample {
 
 impl CubeSample {
     //only 12 red cubes, 13 green cubes, and 14 blue cubes is legal
-    fn is_valid_sample(&self) -> bool {
+    pub fn is_valid_sample(&self) -> bool {
         return self.num_reds <= 12 && self.num_greens <= 13 && self.num_blues <= 14;
     }
 }
 
 pub struct CubeSamples {
     samples: Vec<CubeSample>,
-    game_num: i32,
+    pub game_num: i32,
 }
 
 impl CubeSamples {
-    fn has_valid_samples(&self) -> bool {
+    pub fn has_valid_samples(&self) -> bool {
         for s in &self.samples {
             if s.is_valid_sample() == false {
                 return false;
@@ -116,6 +116,7 @@ mod test_cube_sampler {
         assert_eq!(2, result.samples[2].num_greens);
     }
 
+    #[test]
     fn test_is_valid_sample() {
         let cs = CubeSample {
             num_reds: 0,
@@ -125,33 +126,37 @@ mod test_cube_sampler {
         assert_eq!(cs.is_valid_sample(), true);
     }
 
+    #[test]
     fn test_is_not_valid_sample_cos_reds() {
         let cs = CubeSample {
             num_reds: 13,
             num_greens: 0,
             num_blues: 0,
         };
-        assert_eq!(cs.is_valid_sample(), true);
+        assert_eq!(cs.is_valid_sample(), false);
     }
 
+    #[test]
     fn test_is_not_valid_sample_cos_greens() {
         let cs = CubeSample {
             num_reds: 12,
             num_greens: 14,
             num_blues: 0,
         };
-        assert_eq!(cs.is_valid_sample(), true);
+        assert_eq!(cs.is_valid_sample(), false);
     }
 
+    #[test]
     fn test_is_not_valid_sample_cos_blues() {
         let cs = CubeSample {
             num_reds: 12,
             num_greens: 13,
             num_blues: 15,
         };
-        assert_eq!(cs.is_valid_sample(), true);
+        assert_eq!(cs.is_valid_sample(), false);
     }
 
+    #[test]
     fn test_is_valid_game_on_valid_game_input() {
         let result =
             parse_cube_sample_line("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green");
@@ -159,10 +164,11 @@ mod test_cube_sampler {
         assert_eq!(result.has_valid_samples(), true);
     }
 
+    #[test]
     fn test_is_valid_game_on_valid_game_invalid_sample_input() {
         let result =
             parse_cube_sample_line("Game 1: 13 blue, 14 red; 1 red, 15 green, 6 blue; 2 green");
 
-        assert_eq!(result.has_valid_samples(), true);
+        assert_eq!(result.has_valid_samples(), false);
     }
 }
