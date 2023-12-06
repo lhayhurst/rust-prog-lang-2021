@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 pub struct EngineSchematic {
-    schema: Vec<Vec<char>>,
+    pub schema: Vec<Vec<char>>,
 }
 
 fn str_to_int32(input: &str) -> Option<i32> {
@@ -16,7 +16,7 @@ impl EngineSchematic {
         Self { schema }
     }
 
-    pub fn create_schema(input: Vec<&str>) -> Vec<Vec<char>> {
+    pub fn create_schema(input: Vec<String>) -> Vec<Vec<char>> {
         input
             .iter()
             .map(|line| line.trim().chars().collect())
@@ -24,21 +24,42 @@ impl EngineSchematic {
     }
 
     pub fn get_part_numbers(&self) -> Vec<i32> {
-        let mut numbers = HashSet::new();
-        for (row_num, row) in self.schema.iter().enumerate() {
-            for (col_num, col_val) in row.iter().enumerate() {
+        let mut numbers = Vec::new();
+        for row_num in 0..self.schema.len() {
+            let mut col_num = 0;
+            while col_num < self.schema[row_num].len() {
+                let col_val = self.schema[row_num][col_num];
                 if col_val.is_digit(10) {
                     if self.is_adjacent_to_symbol(row_num, col_num) {
                         if let Some(extracted_number) =
                             self.extract_number_from_location(row_num, col_num)
                         {
-                            numbers.insert(extracted_number);
+                            numbers.push(extracted_number);
+                            col_num += 1;
+                            while col_num < self.schema[row_num].len()
+                                && self.schema[row_num][col_num].is_digit(10)
+                            {
+                                col_num += 1;
+                            }
                         }
+                    } else {
+                        col_num += 1;
                     }
+                } else {
+                    col_num += 1;
                 }
             }
         }
-        return numbers.iter().cloned().collect();
+        return numbers;
+    }
+
+    pub fn sum_part_numbers(&self) -> i32 {
+        let mut sum: i32 = 0;
+        let pn = self.get_part_numbers();
+        for num in pn {
+            sum += num;
+        }
+        return sum;
     }
 
     pub fn extract_number_from_location(&self, row: usize, column: usize) -> Option<i32> {
@@ -105,6 +126,11 @@ impl EngineSchematic {
             return true;
         }
 
+        //look down
+        if self.is_symbol(row as i32 + 1, column as i32) {
+            return true;
+        }
+
         //look diagonal up, right
         if self.is_symbol(row as i32 - 1, column as i32 + 1) {
             return true;
@@ -147,7 +173,8 @@ mod test_can_create_schema {
         "#;
         let trimmed_input = input.trim();
         let lines: Vec<&str> = trimmed_input.trim().lines().collect();
-        let schema = EngineSchematic::create_schema(lines);
+        let str_lines = lines.iter().map(|s| s.to_string()).collect();
+        let schema = EngineSchematic::create_schema(str_lines);
         let engine_schematic = EngineSchematic { schema };
         engine_schematic
     }
@@ -202,5 +229,39 @@ mod test_can_create_schema {
         assert_eq!(true, part_numbers.contains(&592));
         assert_eq!(true, part_numbers.contains(&755));
         assert_eq!(true, part_numbers.contains(&664));
+    }
+
+    #[test]
+    fn test_sum_part_numbers() {
+        let es = get_test_schematic();
+        assert_eq!(4361, es.sum_part_numbers());
+    }
+
+    fn get_alt_test_schematic() -> EngineSchematic {
+        let input = r#"
+12.......*..
++.........34
+.......-12..
+..78........
+..*....60...
+78.........9
+15.....23..$
+8...90*12...
+............
+2.2......12.
+.*.........*
+1.1..503+.56"#;
+        let trimmed_input = input.trim();
+        let lines: Vec<&str> = trimmed_input.trim().lines().collect();
+        let str_lines = lines.iter().map(|s| s.to_string()).collect();
+        let schema = EngineSchematic::create_schema(str_lines);
+        let engine_schematic = EngineSchematic { schema };
+        engine_schematic
+    }
+
+    #[test]
+    fn test_sum_parts_on_alt_schematic() {
+        let es = get_alt_test_schematic();
+        assert_eq!(925, es.sum_part_numbers());
     }
 }
