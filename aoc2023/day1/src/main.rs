@@ -1,7 +1,7 @@
-use std::fs::File;
-use std::io::{self, BufRead};
 use day1::get_calibration_value;
 use day1::get_numbers_from_string;
+use std::fs::File;
+use std::io::{self, BufRead};
 
 pub fn read_file_lines(file_path: &str) -> Result<Vec<String>, io::Error> {
     let file = File::open(file_path)?;

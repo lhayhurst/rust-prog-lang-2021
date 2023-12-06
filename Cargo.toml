@@ -12,5 +12,6 @@ members = [
     "chpt8/string",
     "chpt8/hashmap",
     "aoc2023/day1",
-    "aoc2023/day2"
+    "aoc2023/day2",
+    "aoc2023/day3"
 ]
